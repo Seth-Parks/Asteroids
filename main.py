@@ -9,17 +9,20 @@ from player import *
 
 
 def main():
-
+    #Setting up the logic for the game loop
     pygame.init()
     clock = pygame.time.Clock()
     dt = 0
-    player = Player(SCREEN_WIDTH/2, SCREEN_HEIGHT/2)
-
-
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-
-
-
+    
+    
+    
+    updatable = pygame.sprite.Group()
+    drawable = pygame.sprite.Group()
+    
+    Player.containers = (updatable, drawable)
+    player = Player(SCREEN_WIDTH/2, SCREEN_HEIGHT/2)
+    
     while True:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -31,13 +34,15 @@ def main():
             
             
             #draw the player to the screen
-            player.draw(screen)
+            for group in drawable:
+                group.draw(screen)
 
 
 
 
-            #update the player's location then calulated the delta
-            player.update(dt)
+
+            #update the player's location then calculate the new delta
+            updatable.update(dt)
             dt = clock.tick(60) / 1000
             pygame.display.flip()
 
