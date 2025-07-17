@@ -6,7 +6,8 @@ import pygame
 from constants import *
 from circleshape import *
 from player import *
-
+from asteroid import *
+from asteroidfield import *
 
 def main():
     #Setting up the logic for the game loop
@@ -19,10 +20,17 @@ def main():
     
     updatable = pygame.sprite.Group()
     drawable = pygame.sprite.Group()
-    
+    asteroids = pygame.sprite.Group()
+
+    Asteroid.containers = (asteroids, updatable, drawable)
+    AsteroidField.containers = (updatable)
     Player.containers = (updatable, drawable)
-    player = Player(SCREEN_WIDTH/2, SCREEN_HEIGHT/2)
     
+    
+    player = Player(SCREEN_WIDTH/2, SCREEN_HEIGHT/2)
+    asteroid_field = AsteroidField()
+
+
     while True:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -36,8 +44,6 @@ def main():
             #draw the player to the screen
             for group in drawable:
                 group.draw(screen)
-
-
 
 
 
