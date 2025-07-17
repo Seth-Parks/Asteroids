@@ -49,6 +49,11 @@ def main():
 
             #update the player's location then calculate the new delta
             updatable.update(dt)
+            for asteroid in asteroids:
+                if asteroid.collides(player):
+                    print(f"Game over!")
+                    exit(0)
+
             dt = clock.tick(60) / 1000
             pygame.display.flip()
 
